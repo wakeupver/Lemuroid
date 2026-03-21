@@ -154,6 +154,11 @@
     <string name="patch_codes_empty_title">No patch codes yet</string>
     <string name="patch_codes_empty_subtitle">Tap + to add a Game Genie, Action Replay, or raw memory patch code</string>
     <string name="patch_codes_no_description">Unnamed code</string>
+    <string name="patch_codes_import_sdcard">Import from file</string>
+    <string name="patch_codes_import_success">Imported %1$d patch code(s)</string>
+    <string name="patch_codes_import_empty">No valid codes found in file</string>
+    <string name="patch_codes_import_error">Failed to read file. Make sure it is a valid .cht or text file.</string>
+    <string name="patch_codes_import_hint">Tap the folder icon to import codes from a .cht or text file on your SD card</string>
 
     <string name="notification_channel_name">All notifications</string>
     <string name="library_index_notification_title">ROMs scanning in progress</string>
