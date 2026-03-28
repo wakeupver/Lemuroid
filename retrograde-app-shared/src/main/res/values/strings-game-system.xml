@@ -1,75 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   strings-game-system.xml
-
-  Copyright (C) 2017 Retrograde Project
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  -->
-
+  Copyright (C) 2017 Retrograde Project — GPLv3
+-->
 <resources>
+    <!-- Abbreviations (shown in chip/badge) -->
+    <!-- Nintendo -->
     <string name="game_system_abbr_nes">NES</string>
-    <string name="game_system_abbr_atari2600">A26</string>
+    <string name="game_system_abbr_fds">FDS</string>
     <string name="game_system_abbr_snes">SNES</string>
-    <string name="game_system_abbr_genesis">Genesis</string>
-    <string name="game_system_abbr_scd">SCD</string>
-    <string name="game_system_abbr_gg">GG</string>
+    <string name="game_system_abbr_n64">N64</string>
     <string name="game_system_abbr_gb">GB</string>
     <string name="game_system_abbr_gbc">GBC</string>
     <string name="game_system_abbr_gba">GBA</string>
-    <string name="game_system_abbr_n64">N64</string>
-    <string name="game_system_abbr_psx">PSX</string>
     <string name="game_system_abbr_nds">NDS</string>
+    <string name="game_system_abbr_3ds">3DS</string>
+    <!-- Sega -->
     <string name="game_system_abbr_sms">SMS</string>
+    <string name="game_system_abbr_sg1000">SG-1000</string>
+    <string name="game_system_abbr_genesis">Genesis</string>
+    <string name="game_system_abbr_scd">SCD</string>
+    <string name="game_system_abbr_32x">32X</string>
+    <string name="game_system_abbr_gg">GG</string>
+    <string name="game_system_abbr_saturn">Saturn</string>
+    <!-- Sony -->
+    <string name="game_system_abbr_psx">PSX</string>
     <string name="game_system_abbr_psp">PSP</string>
-    <string name="game_system_abbr_arcade_fbneo">FBNeo</string>
-    <string name="game_system_abbr_arcade_mame2003_plus">MAME2003</string>
+    <!-- Atari -->
+    <string name="game_system_abbr_atari2600">A26</string>
+    <string name="game_system_abbr_atari5200">A52</string>
     <string name="game_system_abbr_atari7800">A78</string>
     <string name="game_system_abbr_lynx">Lynx</string>
+    <string name="game_system_abbr_jaguar">Jaguar</string>
+    <!-- NEC -->
     <string name="game_system_abbr_pce">PCE</string>
+    <string name="game_system_abbr_sgfx">SGX</string>
+    <string name="game_system_abbr_pcecd">PCE-CD</string>
+    <string name="game_system_abbr_pcfx">PC-FX</string>
+    <!-- SNK -->
     <string name="game_system_abbr_ngp">NGP</string>
     <string name="game_system_abbr_ngc">NGC</string>
+    <string name="game_system_abbr_neocd">NeoCD</string>
+    <!-- Bandai -->
     <string name="game_system_abbr_ws">WS</string>
     <string name="game_system_abbr_wsc">WSC</string>
+    <string name="game_system_abbr_pokemini">PKMini</string>
+    <!-- Other consoles -->
+    <string name="game_system_abbr_3do">3DO</string>
+    <string name="game_system_abbr_vb">VB</string>
+    <string name="game_system_abbr_colecovision">ColecoV</string>
+    <string name="game_system_abbr_intellivision">Intv</string>
+    <string name="game_system_abbr_vectrex">Vectrex</string>
+    <string name="game_system_abbr_odyssey2">Odyssey</string>
+    <!-- Home computers -->
     <string name="game_system_abbr_dos">DOS</string>
-    <string name="game_system_abbr_3ds">3DS</string>
+    <string name="game_system_abbr_amiga">Amiga</string>
+    <string name="game_system_abbr_c64">C64</string>
+    <string name="game_system_abbr_msx">MSX</string>
+    <string name="game_system_abbr_msx2">MSX2</string>
+    <string name="game_system_abbr_zxspectrum">ZX</string>
+    <string name="game_system_abbr_amstradcpc">CPC</string>
+    <!-- Arcade -->
+    <string name="game_system_abbr_arcade_fbneo">FBNeo</string>
+    <string name="game_system_abbr_arcade_mame2003_plus">MAME2003</string>
 
+    <!-- Full titles (shown in system list header) -->
+    <!-- Nintendo -->
     <string name="game_system_title_nes">Nintendo</string>
-    <string name="game_system_title_atari2600">Atari 2600</string>
+    <string name="game_system_title_fds">Famicom Disk System</string>
     <string name="game_system_title_snes">Super Nintendo</string>
-    <string name="game_system_title_genesis">Sega Genesis</string>
-    <string name="game_system_title_scd">Sega CD</string>
-    <string name="game_system_title_gg">Game Gear</string>
+    <string name="game_system_title_n64">Nintendo 64</string>
     <string name="game_system_title_gb">Game Boy</string>
     <string name="game_system_title_gbc">Game Boy Color</string>
     <string name="game_system_title_gba">Game Boy Advance</string>
-    <string name="game_system_title_n64">Nintendo 64</string>
-    <string name="game_system_title_psx">PlayStation</string>
     <string name="game_system_title_nds">Nintendo DS</string>
+    <string name="game_system_title_3ds">Nintendo 3DS (Beta)</string>
+    <!-- Sega -->
     <string name="game_system_title_sms">Sega Master System</string>
+    <string name="game_system_title_sg1000">Sega SG-1000</string>
+    <string name="game_system_title_genesis">Sega Genesis</string>
+    <string name="game_system_title_scd">Sega CD</string>
+    <string name="game_system_title_32x">Sega 32X</string>
+    <string name="game_system_title_gg">Game Gear</string>
+    <string name="game_system_title_saturn">Sega Saturn (Beta)</string>
+    <!-- Sony -->
+    <string name="game_system_title_psx">PlayStation</string>
     <string name="game_system_title_psp">PlayStation Portable</string>
-    <string name="game_system_title_arcade_fbneo">FBNeo</string>
-    <string name="game_system_title_arcade_mame2003_plus">MAME2003 Plus</string>
+    <!-- Atari -->
+    <string name="game_system_title_atari2600">Atari 2600</string>
+    <string name="game_system_title_atari5200">Atari 5200</string>
     <string name="game_system_title_atari7800">Atari 7800</string>
     <string name="game_system_title_lynx">Atari Lynx</string>
+    <string name="game_system_title_jaguar">Atari Jaguar (Beta)</string>
+    <!-- NEC -->
     <string name="game_system_title_pce">PCEngine</string>
+    <string name="game_system_title_sgfx">SuperGrafx</string>
+    <string name="game_system_title_pcecd">PCEngine CD</string>
+    <string name="game_system_title_pcfx">PC-FX (Beta)</string>
+    <!-- SNK -->
     <string name="game_system_title_ngp">Neo Geo Pocket</string>
     <string name="game_system_title_ngc">Neo Geo Pocket Color</string>
+    <string name="game_system_title_neocd">Neo Geo CD (Beta)</string>
+    <!-- Bandai -->
     <string name="game_system_title_ws">WonderSwan</string>
     <string name="game_system_title_wsc">WonderSwan Color</string>
+    <string name="game_system_title_pokemini">Pokémon Mini</string>
+    <!-- Other consoles -->
+    <string name="game_system_title_3do">3DO (Beta)</string>
+    <string name="game_system_title_vb">Virtual Boy</string>
+    <string name="game_system_title_colecovision">ColecoVision</string>
+    <string name="game_system_title_intellivision">Intellivision</string>
+    <string name="game_system_title_vectrex">Vectrex</string>
+    <string name="game_system_title_odyssey2">Odyssey 2</string>
+    <!-- Home computers -->
     <string name="game_system_title_dos">DOS (Beta)</string>
-    <string name="game_system_title_3ds">Nintendo 3DS (Beta)</string>
-
+    <string name="game_system_title_amiga">Amiga (Beta)</string>
+    <string name="game_system_title_c64">Commodore 64 (Beta)</string>
+    <string name="game_system_title_msx">MSX</string>
+    <string name="game_system_title_msx2">MSX2</string>
+    <string name="game_system_title_zxspectrum">ZX Spectrum</string>
+    <string name="game_system_title_amstradcpc">Amstrad CPC</string>
+    <!-- Arcade -->
+    <string name="game_system_title_arcade_fbneo">FBNeo</string>
+    <string name="game_system_title_arcade_mame2003_plus">MAME2003 Plus</string>
     <string name="game_system_title_arcade">Arcade</string>
 </resources>
