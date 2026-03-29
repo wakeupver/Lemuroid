@@ -35,6 +35,7 @@ enum class SystemID(val dbname: String) {
     ATARI2600("atari2600"),
     ATARI5200("atari5200"),
     ATARI7800("atari7800"),
+    ATARI_8BIT("atari800"),
     LYNX("lynx"),
     JAGUAR("jaguar"),
     ATARI_ST("atarist"),
@@ -73,8 +74,6 @@ enum class SystemID(val dbname: String) {
     ZX81("zx81"),
     AMSTRAD_CPC("amstradcpc"),
     SHARP_X68000("x68000"),
-    SHARP_X1("x1"),
-    ATARI_8BIT("atari800"),
 
     // ── Other consoles ────────────────────────────────────────────────────────
     COLECOVISION("colecovision"),
@@ -89,7 +88,4 @@ enum class SystemID(val dbname: String) {
     // ── Arcade ────────────────────────────────────────────────────────────────
     FBNEO("fbneo"),
     MAME2003PLUS("mame2003plus"),
-    MAME2000("mame2000"),
-    MAME2010("mame2010"),
-    MAME_CURRENT("mame"),
 }
