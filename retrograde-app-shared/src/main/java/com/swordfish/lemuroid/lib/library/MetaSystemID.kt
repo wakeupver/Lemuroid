@@ -215,7 +215,7 @@ enum class MetaSystemID(val titleResId: Int, val imageResId: Int, val systemIDs:
     ARCADE(
         R.string.game_system_title_arcade,
         R.drawable.game_system_arcade,
-        listOf(SystemID.FBNEO, SystemID.MAME2003PLUS),
+        listOf(SystemID.FBNEO, SystemID.MAME2003PLUS, SystemID.MAME2000, SystemID.MAME2010, SystemID.MAME_CURRENT),
     ),
     ;
 
@@ -281,6 +281,42 @@ enum class MetaSystemID(val titleResId: Int, val imageResId: Int, val systemIDs:
             // Arcade
             SystemID.FBNEO          -> ARCADE
             SystemID.MAME2003PLUS   -> ARCADE
+            SystemID.MAME2000       -> ARCADE
+            SystemID.MAME2010       -> ARCADE
+            SystemID.MAME_CURRENT   -> ARCADE
+            // Sega Dreamcast
+            SystemID.DREAMCAST      -> SATURN
+            // Nintendo GameCube / Wii
+            SystemID.GAMECUBE       -> N64
+            SystemID.WII            -> N64
+            // Sony PS2
+            SystemID.PS2            -> PSP
+            // Atari ST
+            SystemID.ATARI_ST       -> JAGUAR
+            // NEC PC-88 / PC-98
+            SystemID.PC_88          -> PC_FX
+            SystemID.PC_98          -> PC_FX
+            // SNK Neo Geo AES/MVS
+            SystemID.NEO_GEO        -> NGP
+            // Sharp X68000 / X1
+            SystemID.SHARP_X68000   -> AMSTRAD_CPC
+            SystemID.SHARP_X1       -> AMSTRAD_CPC
+            // Sinclair ZX-81
+            SystemID.ZX81           -> ZX_SPECTRUM
+            // Fairchild Channel F
+            SystemID.FAIRCHILD_CHANNEL_F -> COLECOVISION
+            // Mega Duck
+            SystemID.MEGA_DUCK      -> GB
+            // Watara Supervision
+            SystemID.SUPERVISION    -> GB
+            // Thomson
+            SystemID.THOMSON        -> AMSTRAD_CPC
+            // Commodore extras
+            SystemID.VIC20          -> C64
+            SystemID.C128           -> C64
+            SystemID.PET            -> C64
+            // Atari 8-bit
+            SystemID.ATARI_8BIT     -> ATARI5200
         }
     }
 }
