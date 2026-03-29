@@ -5,218 +5,115 @@ import com.swordfish.lemuroid.lib.R
 
 fun GameSystem.metaSystemID() = MetaSystemID.fromSystemID(id)
 
-/**
- * Meta systems represent a collection of systems which appear the same to the user.
- * (e.g. Arcade groups FBNeo + MAME2003Plus; Genesis groups MD + SCD + 32X; etc.)
- *
- * Drawable fallbacks: new systems without a dedicated icon reuse the closest visual match.
- */
 enum class MetaSystemID(val titleResId: Int, val imageResId: Int, val systemIDs: List<SystemID>) {
 
     // ── Nintendo ──────────────────────────────────────────────────────────────
-    NES(
-        R.string.game_system_title_nes,
-        R.drawable.game_system_nes,
-        listOf(SystemID.NES, SystemID.FDS),
-    ),
-    SNES(
-        R.string.game_system_title_snes,
-        R.drawable.game_system_snes,
-        listOf(SystemID.SNES),
-    ),
-    N64(
-        R.string.game_system_title_n64,
-        R.drawable.game_system_n64,
-        listOf(SystemID.N64),
-    ),
-    GB(
-        R.string.game_system_title_gb,
-        R.drawable.game_system_gb,
-        listOf(SystemID.GB),
-    ),
-    GBC(
-        R.string.game_system_title_gbc,
-        R.drawable.game_system_gbc,
-        listOf(SystemID.GBC),
-    ),
-    GBA(
-        R.string.game_system_title_gba,
-        R.drawable.game_system_gba,
-        listOf(SystemID.GBA),
-    ),
-    NDS(
-        R.string.game_system_title_nds,
-        R.drawable.game_system_ds,
-        listOf(SystemID.NDS),
-    ),
-    NINTENDO_3DS(
-        R.string.game_system_title_3ds,
-        R.drawable.game_system_3ds,
-        listOf(SystemID.NINTENDO_3DS),
-    ),
-    VIRTUAL_BOY(
-        R.string.game_system_title_vb,
-        R.drawable.game_system_nes,           // fallback
-        listOf(SystemID.VIRTUAL_BOY),
-    ),
+    NES(R.string.game_system_title_nes, R.drawable.game_system_nes,
+        listOf(SystemID.NES, SystemID.FDS)),
+    SNES(R.string.game_system_title_snes, R.drawable.game_system_snes,
+        listOf(SystemID.SNES)),
+    N64(R.string.game_system_title_n64, R.drawable.game_system_n64,
+        listOf(SystemID.N64)),
+    GB(R.string.game_system_title_gb, R.drawable.game_system_gb,
+        listOf(SystemID.GB)),
+    GBC(R.string.game_system_title_gbc, R.drawable.game_system_gbc,
+        listOf(SystemID.GBC)),
+    GBA(R.string.game_system_title_gba, R.drawable.game_system_gba,
+        listOf(SystemID.GBA)),
+    NDS(R.string.game_system_title_nds, R.drawable.game_system_ds,
+        listOf(SystemID.NDS)),
+    NINTENDO_3DS(R.string.game_system_title_3ds, R.drawable.game_system_3ds,
+        listOf(SystemID.NINTENDO_3DS)),
+    GAMECUBE(R.string.game_system_title_gc, R.drawable.game_system_n64,        // fallback
+        listOf(SystemID.GAMECUBE)),
+    WII(R.string.game_system_title_wii, R.drawable.game_system_n64,            // fallback
+        listOf(SystemID.WII)),
+    VIRTUAL_BOY(R.string.game_system_title_vb, R.drawable.game_system_nes,     // fallback
+        listOf(SystemID.VIRTUAL_BOY)),
+    POKEMON_MINI(R.string.game_system_title_pokemini, R.drawable.game_system_gb, // fallback
+        listOf(SystemID.POKEMON_MINI)),
 
     // ── Sega ──────────────────────────────────────────────────────────────────
-    SMS(
-        R.string.game_system_title_sms,
-        R.drawable.game_system_sms,
-        listOf(SystemID.SMS, SystemID.SG1000),
-    ),
-    GENESIS(
-        R.string.game_system_title_genesis,
-        R.drawable.game_system_genesis,
-        listOf(SystemID.GENESIS, SystemID.SEGACD, SystemID.SEGA_32X),
-    ),
-    GG(
-        R.string.game_system_title_gg,
-        R.drawable.game_system_gg,
-        listOf(SystemID.GG),
-    ),
-    SATURN(
-        R.string.game_system_title_saturn,
-        R.drawable.game_system_genesis,       // fallback
-        listOf(SystemID.SATURN),
-    ),
+    SMS(R.string.game_system_title_sms, R.drawable.game_system_sms,
+        listOf(SystemID.SMS, SystemID.SG1000)),
+    GENESIS(R.string.game_system_title_genesis, R.drawable.game_system_genesis,
+        listOf(SystemID.GENESIS, SystemID.SEGACD, SystemID.SEGA_32X)),
+    GG(R.string.game_system_title_gg, R.drawable.game_system_gg,
+        listOf(SystemID.GG)),
+    SATURN(R.string.game_system_title_saturn, R.drawable.game_system_genesis,  // fallback
+        listOf(SystemID.SATURN)),
+    DREAMCAST(R.string.game_system_title_dc, R.drawable.game_system_genesis,   // fallback
+        listOf(SystemID.DREAMCAST)),
 
     // ── Sony ──────────────────────────────────────────────────────────────────
-    PSX(
-        R.string.game_system_title_psx,
-        R.drawable.game_system_psx,
-        listOf(SystemID.PSX),
-    ),
-    PSP(
-        R.string.game_system_title_psp,
-        R.drawable.game_system_psp,
-        listOf(SystemID.PSP),
-    ),
+    PSX(R.string.game_system_title_psx, R.drawable.game_system_psx,
+        listOf(SystemID.PSX)),
+    PSP(R.string.game_system_title_psp, R.drawable.game_system_psp,
+        listOf(SystemID.PSP)),
+    PS2(R.string.game_system_title_ps2, R.drawable.game_system_psx,            // fallback
+        listOf(SystemID.PS2)),
 
     // ── Atari ─────────────────────────────────────────────────────────────────
-    ATARI2600(
-        R.string.game_system_title_atari2600,
-        R.drawable.game_system_atari2600,
-        listOf(SystemID.ATARI2600),
-    ),
-    ATARI5200(
-        R.string.game_system_title_atari5200,
-        R.drawable.game_system_atari2600,     // fallback
-        listOf(SystemID.ATARI5200),
-    ),
-    ATARI7800(
-        R.string.game_system_title_atari7800,
-        R.drawable.game_system_atari7800,
-        listOf(SystemID.ATARI7800),
-    ),
-    LYNX(
-        R.string.game_system_title_lynx,
-        R.drawable.game_system_lynx,
-        listOf(SystemID.LYNX),
-    ),
-    JAGUAR(
-        R.string.game_system_title_jaguar,
-        R.drawable.game_system_atari7800,     // fallback
-        listOf(SystemID.JAGUAR),
-    ),
+    ATARI2600(R.string.game_system_title_atari2600, R.drawable.game_system_atari2600,
+        listOf(SystemID.ATARI2600)),
+    ATARI5200(R.string.game_system_title_atari5200, R.drawable.game_system_atari2600, // fallback
+        listOf(SystemID.ATARI5200, SystemID.ATARI_8BIT)),
+    ATARI7800(R.string.game_system_title_atari7800, R.drawable.game_system_atari7800,
+        listOf(SystemID.ATARI7800)),
+    LYNX(R.string.game_system_title_lynx, R.drawable.game_system_lynx,
+        listOf(SystemID.LYNX)),
+    JAGUAR(R.string.game_system_title_jaguar, R.drawable.game_system_atari7800, // fallback
+        listOf(SystemID.JAGUAR, SystemID.ATARI_ST)),
 
     // ── NEC ───────────────────────────────────────────────────────────────────
-    PC_ENGINE(
-        R.string.game_system_title_pce,
-        R.drawable.game_system_pce,
-        listOf(SystemID.PC_ENGINE, SystemID.SUPER_GRAFX, SystemID.PC_ENGINE_CD),
-    ),
-    PC_FX(
-        R.string.game_system_title_pcfx,
-        R.drawable.game_system_pce,           // fallback
-        listOf(SystemID.PC_FX),
-    ),
+    PC_ENGINE(R.string.game_system_title_pce, R.drawable.game_system_pce,
+        listOf(SystemID.PC_ENGINE, SystemID.SUPER_GRAFX, SystemID.PC_ENGINE_CD)),
+    PC_FX(R.string.game_system_title_pcfx, R.drawable.game_system_pce,         // fallback
+        listOf(SystemID.PC_FX, SystemID.PC_88, SystemID.PC_98)),
 
     // ── SNK ───────────────────────────────────────────────────────────────────
-    NGP(
-        R.string.game_system_title_ngp,
-        R.drawable.game_system_ngp,
-        listOf(SystemID.NGP, SystemID.NGC, SystemID.NEO_GEO_CD),
-    ),
+    NGP(R.string.game_system_title_ngp, R.drawable.game_system_ngp,
+        listOf(SystemID.NGP, SystemID.NGC, SystemID.NEO_GEO_CD, SystemID.NEO_GEO)),
 
     // ── Bandai ────────────────────────────────────────────────────────────────
-    WS(
-        R.string.game_system_title_ws,
-        R.drawable.game_system_ws,
-        listOf(SystemID.WS, SystemID.WSC),
-    ),
-    POKEMON_MINI(
-        R.string.game_system_title_pokemini,
-        R.drawable.game_system_gb,            // fallback
-        listOf(SystemID.POKEMON_MINI),
-    ),
+    WS(R.string.game_system_title_ws, R.drawable.game_system_ws,
+        listOf(SystemID.WS, SystemID.WSC)),
+
+    // ── 3DO ───────────────────────────────────────────────────────────────────
+    PANASONIC_3DO(R.string.game_system_title_3do, R.drawable.game_system_psx,  // fallback
+        listOf(SystemID.PANASONIC_3DO)),
 
     // ── Other consoles ────────────────────────────────────────────────────────
-    PANASONIC_3DO(
-        R.string.game_system_title_3do,
-        R.drawable.game_system_psx,           // fallback
-        listOf(SystemID.PANASONIC_3DO),
-    ),
-    COLECOVISION(
-        R.string.game_system_title_colecovision,
-        R.drawable.game_system_atari2600,     // fallback
-        listOf(SystemID.COLECOVISION),
-    ),
-    INTELLIVISION(
-        R.string.game_system_title_intellivision,
-        R.drawable.game_system_atari2600,     // fallback
-        listOf(SystemID.INTELLIVISION),
-    ),
-    VECTREX(
-        R.string.game_system_title_vectrex,
-        R.drawable.game_system_arcade,        // fallback
-        listOf(SystemID.VECTREX),
-    ),
-    ODYSSEY2(
-        R.string.game_system_title_odyssey2,
-        R.drawable.game_system_atari2600,     // fallback
-        listOf(SystemID.ODYSSEY2),
-    ),
+    COLECOVISION(R.string.game_system_title_colecovision, R.drawable.game_system_atari2600, // fallback
+        listOf(SystemID.COLECOVISION, SystemID.FAIRCHILD_CHANNEL_F)),
+    INTELLIVISION(R.string.game_system_title_intellivision, R.drawable.game_system_atari2600, // fallback
+        listOf(SystemID.INTELLIVISION)),
+    VECTREX(R.string.game_system_title_vectrex, R.drawable.game_system_arcade, // fallback
+        listOf(SystemID.VECTREX)),
+    ODYSSEY2(R.string.game_system_title_odyssey2, R.drawable.game_system_atari2600, // fallback
+        listOf(SystemID.ODYSSEY2)),
+    HANDHELD_OTHER(R.string.game_system_title_gb, R.drawable.game_system_gb,   // fallback
+        listOf(SystemID.MEGA_DUCK, SystemID.SUPERVISION)),
+    THOMSON(R.string.game_system_title_amstradcpc, R.drawable.game_system_dos, // fallback
+        listOf(SystemID.THOMSON)),
 
     // ── Home computers ────────────────────────────────────────────────────────
-    DOS(
-        R.string.game_system_title_dos,
-        R.drawable.game_system_dos,
-        listOf(SystemID.DOS),
-    ),
-    AMIGA(
-        R.string.game_system_title_amiga,
-        R.drawable.game_system_dos,           // fallback
-        listOf(SystemID.AMIGA),
-    ),
-    C64(
-        R.string.game_system_title_c64,
-        R.drawable.game_system_dos,           // fallback
-        listOf(SystemID.C64),
-    ),
-    MSX(
-        R.string.game_system_title_msx,
-        R.drawable.game_system_dos,           // fallback
-        listOf(SystemID.MSX, SystemID.MSX2),
-    ),
-    ZX_SPECTRUM(
-        R.string.game_system_title_zxspectrum,
-        R.drawable.game_system_dos,           // fallback
-        listOf(SystemID.ZX_SPECTRUM),
-    ),
-    AMSTRAD_CPC(
-        R.string.game_system_title_amstradcpc,
-        R.drawable.game_system_dos,           // fallback
-        listOf(SystemID.AMSTRAD_CPC),
-    ),
+    DOS(R.string.game_system_title_dos, R.drawable.game_system_dos,
+        listOf(SystemID.DOS)),
+    AMIGA(R.string.game_system_title_amiga, R.drawable.game_system_dos,        // fallback
+        listOf(SystemID.AMIGA)),
+    C64(R.string.game_system_title_c64, R.drawable.game_system_dos,            // fallback
+        listOf(SystemID.C64, SystemID.C128, SystemID.VIC20, SystemID.PET)),
+    MSX(R.string.game_system_title_msx, R.drawable.game_system_dos,            // fallback
+        listOf(SystemID.MSX, SystemID.MSX2)),
+    ZX_SPECTRUM(R.string.game_system_title_zxspectrum, R.drawable.game_system_dos, // fallback
+        listOf(SystemID.ZX_SPECTRUM, SystemID.ZX81)),
+    AMSTRAD_CPC(R.string.game_system_title_amstradcpc, R.drawable.game_system_dos, // fallback
+        listOf(SystemID.AMSTRAD_CPC, SystemID.SHARP_X68000)),
 
     // ── Arcade ────────────────────────────────────────────────────────────────
-    ARCADE(
-        R.string.game_system_title_arcade,
-        R.drawable.game_system_arcade,
-        listOf(SystemID.FBNEO, SystemID.MAME2003PLUS, SystemID.MAME2000, SystemID.MAME2010, SystemID.MAME_CURRENT),
-    ),
+    ARCADE(R.string.game_system_title_arcade, R.drawable.game_system_arcade,
+        listOf(SystemID.FBNEO, SystemID.MAME2003PLUS)),
     ;
 
     fun color(): Int = ColorUtils.color(ordinal.toFloat() / values().size)
@@ -233,7 +130,10 @@ enum class MetaSystemID(val titleResId: Int, val imageResId: Int, val systemIDs:
             SystemID.GBA            -> GBA
             SystemID.NDS            -> NDS
             SystemID.NINTENDO_3DS   -> NINTENDO_3DS
+            SystemID.GAMECUBE       -> GAMECUBE
+            SystemID.WII            -> WII
             SystemID.VIRTUAL_BOY    -> VIRTUAL_BOY
+            SystemID.POKEMON_MINI   -> POKEMON_MINI
             // Sega
             SystemID.SG1000         -> SMS
             SystemID.SMS            -> SMS
@@ -242,81 +142,61 @@ enum class MetaSystemID(val titleResId: Int, val imageResId: Int, val systemIDs:
             SystemID.SEGA_32X       -> GENESIS
             SystemID.GG             -> GG
             SystemID.SATURN         -> SATURN
+            SystemID.DREAMCAST      -> DREAMCAST
             // Sony
             SystemID.PSX            -> PSX
             SystemID.PSP            -> PSP
+            SystemID.PS2            -> PS2
             // Atari
             SystemID.ATARI2600      -> ATARI2600
             SystemID.ATARI5200      -> ATARI5200
+            SystemID.ATARI_8BIT     -> ATARI5200
             SystemID.ATARI7800      -> ATARI7800
             SystemID.LYNX           -> LYNX
             SystemID.JAGUAR         -> JAGUAR
+            SystemID.ATARI_ST       -> JAGUAR
             // NEC
             SystemID.PC_ENGINE      -> PC_ENGINE
             SystemID.SUPER_GRAFX    -> PC_ENGINE
             SystemID.PC_ENGINE_CD   -> PC_ENGINE
             SystemID.PC_FX          -> PC_FX
+            SystemID.PC_88          -> PC_FX
+            SystemID.PC_98          -> PC_FX
             // SNK
             SystemID.NGP            -> NGP
             SystemID.NGC            -> NGP
             SystemID.NEO_GEO_CD     -> NGP
+            SystemID.NEO_GEO        -> NGP
             // Bandai
             SystemID.WS             -> WS
             SystemID.WSC            -> WS
-            SystemID.POKEMON_MINI   -> POKEMON_MINI
-            // Other consoles
+            // 3DO
             SystemID.PANASONIC_3DO  -> PANASONIC_3DO
+            // Other consoles
             SystemID.COLECOVISION   -> COLECOVISION
+            SystemID.FAIRCHILD_CHANNEL_F -> COLECOVISION
             SystemID.INTELLIVISION  -> INTELLIVISION
             SystemID.VECTREX        -> VECTREX
             SystemID.ODYSSEY2       -> ODYSSEY2
+            SystemID.MEGA_DUCK      -> HANDHELD_OTHER
+            SystemID.SUPERVISION    -> HANDHELD_OTHER
+            SystemID.THOMSON        -> THOMSON
             // Home computers
             SystemID.DOS            -> DOS
             SystemID.AMIGA          -> AMIGA
             SystemID.C64            -> C64
+            SystemID.C128           -> C64
+            SystemID.VIC20          -> C64
+            SystemID.PET            -> C64
             SystemID.MSX            -> MSX
             SystemID.MSX2           -> MSX
             SystemID.ZX_SPECTRUM    -> ZX_SPECTRUM
+            SystemID.ZX81           -> ZX_SPECTRUM
             SystemID.AMSTRAD_CPC    -> AMSTRAD_CPC
+            SystemID.SHARP_X68000   -> AMSTRAD_CPC
             // Arcade
             SystemID.FBNEO          -> ARCADE
             SystemID.MAME2003PLUS   -> ARCADE
-            SystemID.MAME2000       -> ARCADE
-            SystemID.MAME2010       -> ARCADE
-            SystemID.MAME_CURRENT   -> ARCADE
-            // Sega Dreamcast
-            SystemID.DREAMCAST      -> SATURN
-            // Nintendo GameCube / Wii
-            SystemID.GAMECUBE       -> N64
-            SystemID.WII            -> N64
-            // Sony PS2
-            SystemID.PS2            -> PSP
-            // Atari ST
-            SystemID.ATARI_ST       -> JAGUAR
-            // NEC PC-88 / PC-98
-            SystemID.PC_88          -> PC_FX
-            SystemID.PC_98          -> PC_FX
-            // SNK Neo Geo AES/MVS
-            SystemID.NEO_GEO        -> NGP
-            // Sharp X68000 / X1
-            SystemID.SHARP_X68000   -> AMSTRAD_CPC
-            SystemID.SHARP_X1       -> AMSTRAD_CPC
-            // Sinclair ZX-81
-            SystemID.ZX81           -> ZX_SPECTRUM
-            // Fairchild Channel F
-            SystemID.FAIRCHILD_CHANNEL_F -> COLECOVISION
-            // Mega Duck
-            SystemID.MEGA_DUCK      -> GB
-            // Watara Supervision
-            SystemID.SUPERVISION    -> GB
-            // Thomson
-            SystemID.THOMSON        -> AMSTRAD_CPC
-            // Commodore extras
-            SystemID.VIC20          -> C64
-            SystemID.C128           -> C64
-            SystemID.PET            -> C64
-            // Atari 8-bit
-            SystemID.ATARI_8BIT     -> ATARI5200
         }
     }
 }
