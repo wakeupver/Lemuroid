@@ -124,4 +124,51 @@
     <string name="game_system_title_arcade_fbneo">FBNeo</string>
     <string name="game_system_title_arcade_mame2003_plus">MAME2003 Plus</string>
     <string name="game_system_title_arcade">Arcade</string>
+    <!-- Sega Dreamcast -->
+    <string name="game_system_title_dc">Dreamcast (Beta)</string>
+    <string name="game_system_abbr_dc">DC</string>
+    <!-- Nintendo GameCube / Wii -->
+    <string name="game_system_title_gc">GameCube (Beta)</string>
+    <string name="game_system_abbr_gc">GC</string>
+    <string name="game_system_title_wii">Wii (Beta)</string>
+    <string name="game_system_abbr_wii">Wii</string>
+    <!-- Sony PS2 -->
+    <string name="game_system_title_ps2">PlayStation 2 (Beta)</string>
+    <string name="game_system_abbr_ps2">PS2</string>
+    <!-- Atari ST -->
+    <string name="game_system_title_atari_st">Atari ST (Beta)</string>
+    <string name="game_system_abbr_atari_st">ST</string>
+    <!-- NEC PC-88 / PC-98 -->
+    <string name="game_system_title_pc88">PC-8800 (Beta)</string>
+    <string name="game_system_abbr_pc88">PC88</string>
+    <string name="game_system_title_pc98">PC-98 (Beta)</string>
+    <string name="game_system_abbr_pc98">PC98</string>
+    <!-- SNK Neo Geo AES/MVS -->
+    <string name="game_system_title_neogeo">Neo Geo AES/MVS</string>
+    <string name="game_system_abbr_neogeo">NEO</string>
+    <!-- Sharp X68000 -->
+    <string name="game_system_title_x68000">Sharp X68000 (Beta)</string>
+    <string name="game_system_abbr_x68000">X68k</string>
+    <!-- Sinclair ZX 81 -->
+    <string name="game_system_title_zx81">ZX 81</string>
+    <string name="game_system_abbr_zx81">ZX81</string>
+    <!-- Fairchild Channel F -->
+    <string name="game_system_title_channelf">Channel F</string>
+    <string name="game_system_abbr_channelf">CHF</string>
+    <!-- Mega Duck -->
+    <string name="game_system_title_megaduck">Mega Duck</string>
+    <string name="game_system_abbr_megaduck">MDK</string>
+    <!-- Watara Supervision -->
+    <string name="game_system_title_supervision">Supervision</string>
+    <string name="game_system_abbr_supervision">SV</string>
+    <!-- Thomson MO/TO -->
+    <string name="game_system_title_thomson">Thomson MO/TO (Beta)</string>
+    <string name="game_system_abbr_thomson">THO</string>
+    <!-- Commodore VIC-20 / C128 / PET -->
+    <string name="game_system_title_vic20">VIC-20 (Beta)</string>
+    <string name="game_system_abbr_vic20">VIC</string>
+    <string name="game_system_title_c128">C128 (Beta)</string>
+    <string name="game_system_abbr_c128">C128</string>
+    <string name="game_system_title_pet">PET (Beta)</string>
+    <string name="game_system_abbr_pet">PET</string>
 </resources>
