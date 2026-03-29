@@ -108,6 +108,25 @@ data class GameSystem(
             ),
 
             GameSystem(
+                SystemID.ATARI_8BIT,
+                "Atari - 8-bit",
+                R.string.game_system_title_atari800,
+                R.string.game_system_abbr_atari800,
+                listOf(SystemCoreConfig(
+                    coreID = CoreID.ATARI800,
+                    controllerConfigs = hashMapOf(0 to arrayListOf(ControllerConfigs.ATARI_2600)),
+                )),
+                uniqueExtensions = listOf("xex"),
+                supportedExtensions = listOf("xex", "atr", "xfd"),
+                scanOptions = ScanOptions(
+                    scanByFilename = false,
+                    scanByUniqueExtension = true,
+                    scanByPathAndFilename = false,
+                    scanByPathAndSupportedExtensions = true,
+                ),
+            ),
+
+            GameSystem(
                 SystemID.ATARI7800,
                 "Atari - 7800",
                 R.string.game_system_title_atari7800,
@@ -117,7 +136,13 @@ data class GameSystem(
                     controllerConfigs = hashMapOf(0 to arrayListOf(ControllerConfigs.ATARI7800)),
                 )),
                 uniqueExtensions = listOf("a78"),
-                supportedExtensions = listOf("bin"),
+                supportedExtensions = listOf("a78", "bin"),
+                scanOptions = ScanOptions(
+                    scanByFilename = false,
+                    scanByUniqueExtension = true,
+                    scanByPathAndFilename = false,
+                    scanByPathAndSupportedExtensions = true,
+                ),
             ),
 
             GameSystem(
@@ -1100,7 +1125,14 @@ data class GameSystem(
                     requiredBIOSFiles = listOf("o2rom.bin"),
                     controllerConfigs = hashMapOf(0 to arrayListOf(ControllerConfigs.ATARI_2600)),
                 )),
-                uniqueExtensions = listOf("bin"),
+                uniqueExtensions = listOf(),
+                supportedExtensions = listOf("bin"),
+                scanOptions = ScanOptions(
+                    scanByFilename = false,
+                    scanByUniqueExtension = false,
+                    scanByPathAndFilename = false,
+                    scanByPathAndSupportedExtensions = true,
+                ),
             ),
 
             // ──────────────────────────────────────────────────────────────────
@@ -1574,7 +1606,14 @@ data class GameSystem(
                         controllerConfigs = hashMapOf(0 to arrayListOf(ControllerConfigs.GB)),
                     ),
                 ),
-                uniqueExtensions = listOf("bin"),
+                uniqueExtensions = listOf(),
+                supportedExtensions = listOf("bin"),
+                scanOptions = ScanOptions(
+                    scanByFilename = false,
+                    scanByUniqueExtension = false,
+                    scanByPathAndFilename = false,
+                    scanByPathAndSupportedExtensions = true,
+                ),
             ),
 
             // ──────────────────────────────────────────────────────────────────
@@ -1696,6 +1735,7 @@ data class GameSystem(
         }
 
         fun findById(id: String): GameSystem = byIdCache.getValue(id)
+        fun findByIdOrNull(id: String): GameSystem? = byIdCache[id]
         fun all() = SYSTEMS
         fun getSupportedExtensions(): List<String> = SYSTEMS.flatMap { it.supportedExtensions }
         fun findSystemForCore(coreID: CoreID): List<GameSystem> =
