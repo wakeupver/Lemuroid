@@ -98,6 +98,40 @@ object ShaderChooser {
             // ── Arcade ───────────────────────────────────────────────────────
             SystemID.FBNEO          -> ShaderConfig.CRT
             SystemID.MAME2003PLUS   -> ShaderConfig.CRT
+            SystemID.MAME2000       -> ShaderConfig.CRT
+            SystemID.MAME2010       -> ShaderConfig.CRT
+            SystemID.MAME_CURRENT   -> ShaderConfig.CRT
+            // ── Sega Dreamcast ───────────────────────────────────────────────
+            SystemID.DREAMCAST      -> ShaderConfig.Default
+            // ── Nintendo GameCube / Wii ──────────────────────────────────────
+            SystemID.GAMECUBE       -> ShaderConfig.Default
+            SystemID.WII            -> ShaderConfig.Default
+            // ── Sony PS2 ─────────────────────────────────────────────────────
+            SystemID.PS2            -> ShaderConfig.Default
+            // ── Atari ST ─────────────────────────────────────────────────────
+            SystemID.ATARI_ST       -> ShaderConfig.CRT
+            SystemID.ATARI_8BIT     -> ShaderConfig.CRT
+            // ── NEC PC-88 / PC-98 ────────────────────────────────────────────
+            SystemID.PC_88          -> ShaderConfig.CRT
+            SystemID.PC_98          -> ShaderConfig.CRT
+            // ── SNK Neo Geo AES/MVS ──────────────────────────────────────────
+            SystemID.NEO_GEO        -> ShaderConfig.CRT
+            // ── Sharp ────────────────────────────────────────────────────────
+            SystemID.SHARP_X68000   -> ShaderConfig.CRT
+            SystemID.SHARP_X1       -> ShaderConfig.CRT
+            // ── Sinclair ZX-81 ───────────────────────────────────────────────
+            SystemID.ZX81           -> ShaderConfig.CRT
+            // ── Fairchild Channel F ──────────────────────────────────────────
+            SystemID.FAIRCHILD_CHANNEL_F -> ShaderConfig.CRT
+            // ── Mega Duck / Supervision ──────────────────────────────────────
+            SystemID.MEGA_DUCK      -> ShaderConfig.LCD
+            SystemID.SUPERVISION    -> ShaderConfig.LCD
+            // ── Thomson ──────────────────────────────────────────────────────
+            SystemID.THOMSON        -> ShaderConfig.CRT
+            // ── Commodore extras ─────────────────────────────────────────────
+            SystemID.VIC20          -> ShaderConfig.CRT
+            SystemID.C128           -> ShaderConfig.CRT
+            SystemID.PET            -> ShaderConfig.CRT
         }
     }
 
@@ -336,6 +370,40 @@ object ShaderChooser {
             // ── Arcade ───────────────────────────────────────────────────────
             SystemID.FBNEO          -> upscale32Bits
             SystemID.MAME2003PLUS   -> upscale32Bits
+            SystemID.MAME2000       -> upscale32Bits
+            SystemID.MAME2010       -> upscale32Bits
+            SystemID.MAME_CURRENT   -> upscale32Bits
+            // ── Sega Dreamcast ───────────────────────────────────────────────
+            SystemID.DREAMCAST      -> modern
+            // ── Nintendo GameCube / Wii ──────────────────────────────────────
+            SystemID.GAMECUBE       -> modern
+            SystemID.WII            -> modern
+            // ── Sony PS2 ─────────────────────────────────────────────────────
+            SystemID.PS2            -> modern
+            // ── Atari ST / 8-bit ─────────────────────────────────────────────
+            SystemID.ATARI_ST       -> upscale16Bits
+            SystemID.ATARI_8BIT     -> upscale8Bits
+            // ── NEC PC-88 / PC-98 ────────────────────────────────────────────
+            SystemID.PC_88          -> upscale8Bits
+            SystemID.PC_98          -> upscale16Bits
+            // ── SNK Neo Geo AES/MVS ──────────────────────────────────────────
+            SystemID.NEO_GEO        -> upscale32Bits
+            // ── Sharp ────────────────────────────────────────────────────────
+            SystemID.SHARP_X68000   -> upscale16Bits
+            SystemID.SHARP_X1       -> upscale16Bits
+            // ── Sinclair ZX-81 ───────────────────────────────────────────────
+            SystemID.ZX81           -> upscale8Bits
+            // ── Fairchild Channel F ──────────────────────────────────────────
+            SystemID.FAIRCHILD_CHANNEL_F -> upscale8Bits
+            // ── Mega Duck / Supervision ──────────────────────────────────────
+            SystemID.MEGA_DUCK      -> upscale8BitsMobile
+            SystemID.SUPERVISION    -> upscale8BitsMobile
+            // ── Thomson ──────────────────────────────────────────────────────
+            SystemID.THOMSON        -> upscale8Bits
+            // ── Commodore extras ─────────────────────────────────────────────
+            SystemID.VIC20          -> upscale8Bits
+            SystemID.C128           -> upscale8Bits
+            SystemID.PET            -> upscale8Bits
         }
     }
 }
