@@ -16,6 +16,34 @@ class LibretroDBMetadataProvider(private val ovgdbManager: LibretroDBManager) :
     GameMetadataProvider {
     companion object {
         private val THUMB_REPLACE = Regex("[&*/:`<>?\\\\|]")
+
+        // Systems whose thumbnails are served under a different folder name on the libretro
+        // thumbnail server than their libretroFullName would suggest.
+        private val THUMBNAIL_SYSTEM_OVERRIDES = mapOf(
+            SystemID.MAME2003PLUS  to "MAME",
+            SystemID.MAME2000      to "MAME",
+            SystemID.MAME2010      to "MAME",
+            SystemID.MAME_CURRENT  to "MAME",
+            SystemID.FBNEO         to "FBNeo - Arcade Games",
+            SystemID.DREAMCAST     to "Sega - Dreamcast",
+            SystemID.GAMECUBE      to "Nintendo - GameCube",
+            SystemID.WII           to "Nintendo - Wii",
+            SystemID.PS2           to "Sony - PlayStation2",
+            SystemID.ATARI_ST      to "Atari - ST",
+            SystemID.PC_88         to "NEC - PC-8800 Series",
+            SystemID.PC_98         to "NEC - PC-98",
+            SystemID.NEO_GEO       to "SNK - Neo Geo",
+            SystemID.SHARP_X68000  to "Sharp - X68000",
+            SystemID.ZX81          to "Sinclair - ZX 81",
+            SystemID.FAIRCHILD_CHANNEL_F to "Fairchild - Channel F",
+            SystemID.MEGA_DUCK     to "Welback Holdings - Mega Duck (Cougar Boy)",
+            SystemID.SUPERVISION   to "Watara - Supervision",
+            SystemID.THOMSON       to "Thomson - MOTO",
+            SystemID.VIC20         to "Commodore - VIC-20",
+            SystemID.C128          to "Commodore - 128",
+            SystemID.PET           to "Commodore - PET",
+            SystemID.ATARI_8BIT    to "Atari - 8-bit",
+        )
     }
 
     private val sortedSystemIds: List<String> by lazy {
@@ -48,8 +76,12 @@ class LibretroDBMetadataProvider(private val ovgdbManager: LibretroDBManager) :
         return metadata
     }
 
-    private fun convertToGameMetadata(rom: LibretroRom): GameMetadata {
-        val system = GameSystem.findById(rom.system!!)
+    // Bug fix: wrap in runCatching so an unknown system in libretro DB does not crash the scan
+    private fun convertToGameMetadata(rom: LibretroRom): GameMetadata? {
+        val system = GameSystem.findByIdOrNull(rom.system ?: return null) ?: run {
+            Timber.w("Unknown system '${rom.system}' found in libretro DB — skipping rom '${rom.name}'")
+            return null
+        }
         return GameMetadata(
             name = rom.name,
             romName = rom.romName,
@@ -64,7 +96,8 @@ class LibretroDBMetadataProvider(private val ovgdbManager: LibretroDBManager) :
         file: StorageFile,
     ): GameMetadata? {
         return db.gameDao().findByFileName(file.name)
-            .filterNullable { extractGameSystem(it).scanOptions.scanByFilename }
+            .filterNullable { extractGameSystem(it) != null }
+            .filterNullable { extractGameSystem(it)!!.scanOptions.scanByFilename }
             ?.let { convertToGameMetadata(it) }
     }
 
@@ -73,8 +106,9 @@ class LibretroDBMetadataProvider(private val ovgdbManager: LibretroDBManager) :
         file: StorageFile,
     ): GameMetadata? {
         return db.gameDao().findByFileName(file.name)
-            .filterNullable { extractGameSystem(it).scanOptions.scanByPathAndFilename }
-            .filterNullable { parentContainsSystem(file.path, extractGameSystem(it).id.dbname) }
+            .filterNullable { extractGameSystem(it) != null }
+            .filterNullable { extractGameSystem(it)!!.scanOptions.scanByPathAndFilename }
+            .filterNullable { parentContainsSystem(file.path, extractGameSystem(it)!!.id.dbname) }
             ?.let { convertToGameMetadata(it) }
     }
 
@@ -82,7 +116,7 @@ class LibretroDBMetadataProvider(private val ovgdbManager: LibretroDBManager) :
         val system =
             sortedSystemIds
                 .filter { parentContainsSystem(file.path, it) }
-                .map { GameSystem.findById(it) }
+                .mapNotNull { GameSystem.findByIdOrNull(it) }   // Bug fix: safe lookup
                 .filter { it.scanOptions.scanByPathAndSupportedExtensions }
                 .firstOrNull { it.supportedExtensions.contains(file.extension) }
 
@@ -101,7 +135,7 @@ class LibretroDBMetadataProvider(private val ovgdbManager: LibretroDBManager) :
         parent: String?,
         dbname: String,
     ): Boolean {
-        return parent?.toLowerCase(Locale.getDefault())?.contains(dbname) == true
+        return parent?.lowercase(Locale.getDefault())?.contains(dbname) == true
     }
 
     private suspend fun findByCRC(
@@ -141,43 +175,34 @@ class LibretroDBMetadataProvider(private val ovgdbManager: LibretroDBManager) :
             return null
         }
 
-        val result =
-            system?.let {
-                GameMetadata(
-                    name = file.extensionlessName,
-                    romName = file.name,
-                    thumbnail = null,
-                    system = it.id.dbname,
-                    developer = null,
-                )
-            }
-
-        return result
+        return system?.let {
+            GameMetadata(
+                name = file.extensionlessName,
+                romName = file.name,
+                thumbnail = null,
+                system = it.id.dbname,
+                developer = null,
+            )
+        }
     }
 
-    private fun extractGameSystem(rom: LibretroRom): GameSystem {
-        return GameSystem.findById(rom.system!!)
+    // Bug fix: safe lookup — unknown system in DB does not crash scan
+    private fun extractGameSystem(rom: LibretroRom): GameSystem? {
+        return GameSystem.findByIdOrNull(rom.system ?: return null)
     }
 
     private fun computeCoverUrl(
         system: GameSystem,
         name: String?,
     ): String? {
-        var systemName = system.libretroFullName
+        if (name == null) return null
 
-        // Specific mame version don't have any thumbnails in Libretro database
-        if (system.id == SystemID.MAME2003PLUS) {
-            systemName = "MAME"
-        }
-
-        if (name == null) {
-            return null
-        }
+        // Bug fix: use override map first, fall back to libretroFullName
+        val systemName = THUMBNAIL_SYSTEM_OVERRIDES[system.id] ?: system.libretroFullName
 
         val imageType = "Named_Boxarts"
-
         val thumbGameName = name.replace(THUMB_REPLACE, "_")
 
-        return "http://thumbnails.libretro.com/$systemName/$imageType/$thumbGameName.png"
+        return "https://thumbnails.libretro.com/$systemName/$imageType/$thumbGameName.png"
     }
 }
