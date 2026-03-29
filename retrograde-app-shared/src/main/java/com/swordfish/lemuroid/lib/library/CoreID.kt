@@ -62,11 +62,6 @@ enum class CoreID(
         "Virtual Jaguar",
         "libvirtualjaguar_libretro_android.so",
     ),
-    HATARI(
-        "hatari",
-        "Hatari",
-        "libhatari_libretro_android.so",
-    ),
 
     // ── Nintendo NES ─────────────────────────────────────────────────────────
     FCEUMM(
