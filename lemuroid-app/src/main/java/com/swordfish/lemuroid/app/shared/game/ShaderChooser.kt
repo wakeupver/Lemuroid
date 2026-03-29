@@ -98,9 +98,6 @@ object ShaderChooser {
             // ── Arcade ───────────────────────────────────────────────────────
             SystemID.FBNEO          -> ShaderConfig.CRT
             SystemID.MAME2003PLUS   -> ShaderConfig.CRT
-            SystemID.MAME2000       -> ShaderConfig.CRT
-            SystemID.MAME2010       -> ShaderConfig.CRT
-            SystemID.MAME_CURRENT   -> ShaderConfig.CRT
             // ── Sega Dreamcast ───────────────────────────────────────────────
             SystemID.DREAMCAST      -> ShaderConfig.Default
             // ── Nintendo GameCube / Wii ──────────────────────────────────────
@@ -118,7 +115,6 @@ object ShaderChooser {
             SystemID.NEO_GEO        -> ShaderConfig.CRT
             // ── Sharp ────────────────────────────────────────────────────────
             SystemID.SHARP_X68000   -> ShaderConfig.CRT
-            SystemID.SHARP_X1       -> ShaderConfig.CRT
             // ── Sinclair ZX-81 ───────────────────────────────────────────────
             SystemID.ZX81           -> ShaderConfig.CRT
             // ── Fairchild Channel F ──────────────────────────────────────────
@@ -370,9 +366,6 @@ object ShaderChooser {
             // ── Arcade ───────────────────────────────────────────────────────
             SystemID.FBNEO          -> upscale32Bits
             SystemID.MAME2003PLUS   -> upscale32Bits
-            SystemID.MAME2000       -> upscale32Bits
-            SystemID.MAME2010       -> upscale32Bits
-            SystemID.MAME_CURRENT   -> upscale32Bits
             // ── Sega Dreamcast ───────────────────────────────────────────────
             SystemID.DREAMCAST      -> modern
             // ── Nintendo GameCube / Wii ──────────────────────────────────────
@@ -390,7 +383,6 @@ object ShaderChooser {
             SystemID.NEO_GEO        -> upscale32Bits
             // ── Sharp ────────────────────────────────────────────────────────
             SystemID.SHARP_X68000   -> upscale16Bits
-            SystemID.SHARP_X1       -> upscale16Bits
             // ── Sinclair ZX-81 ───────────────────────────────────────────────
             SystemID.ZX81           -> upscale8Bits
             // ── Fairchild Channel F ──────────────────────────────────────────
