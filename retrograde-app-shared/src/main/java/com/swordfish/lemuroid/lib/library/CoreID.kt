@@ -120,6 +120,9 @@ enum class CoreID(
                 else -> NoAssetsManager()
             }
         }
+
+        /** Returns the [CoreID] whose [coreName] matches [query], or null if not found. */
+        fun findByName(query: String): CoreID? = entries.firstOrNull { it.coreName == query }
     }
 
     interface AssetsManager {
@@ -132,5 +135,3 @@ enum class CoreID(
         suspend fun clearAssets(directoriesManager: DirectoriesManager)
     }
 }
-
-fun findByName(query: String): CoreID? = CoreID.values().firstOrNull { it.coreName == query }
