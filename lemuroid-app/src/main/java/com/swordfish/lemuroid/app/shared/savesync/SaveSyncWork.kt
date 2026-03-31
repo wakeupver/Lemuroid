@@ -18,7 +18,7 @@ import com.swordfish.lemuroid.app.mobile.shared.NotificationsManager
 import com.swordfish.lemuroid.app.utils.android.createSyncForegroundInfo
 import com.swordfish.lemuroid.lib.injection.AndroidWorkerInjection
 import com.swordfish.lemuroid.lib.injection.WorkerKey
-import com.swordfish.lemuroid.lib.library.findByName
+import com.swordfish.lemuroid.lib.library.CoreID
 import com.swordfish.lemuroid.lib.savesync.SaveSyncManager
 import dagger.Binds
 import dagger.android.AndroidInjector
@@ -48,7 +48,7 @@ class SaveSyncWork(context: Context, workerParams: WorkerParameters) :
 
         val coresToSync =
             settingsManager.syncStatesCores()
-                .mapNotNull { findByName(it) }
+                .mapNotNull { CoreID.findByName(it) }
                 .toSet()
 
         try {
