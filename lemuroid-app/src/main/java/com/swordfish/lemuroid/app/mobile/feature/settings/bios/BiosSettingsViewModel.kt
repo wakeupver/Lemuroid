@@ -19,7 +19,7 @@ class BiosSettingsViewModel(private val biosManager: BiosManager) : ViewModel() 
         }
 
     val uiState =
-        flow { emit(biosManager.getBiosInfoAsync()) }
+        flow { emit(biosManager.getBiosInfo()) }
             .stateIn(
                 viewModelScope,
                 SharingStarted.Lazily,
