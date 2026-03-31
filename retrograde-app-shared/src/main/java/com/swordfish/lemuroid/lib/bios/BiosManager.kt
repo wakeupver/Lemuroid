@@ -55,20 +55,27 @@ class BiosManager(private val directoriesManager: DirectoriesManager) {
             }
     }
 
-    @Deprecated("Use the suspend variant")
-    fun getBiosInfo(): BiosInfo {
+    suspend fun getBiosInfo(): BiosInfo =
+        withContext(Dispatchers.IO) {
+            val bios =
+                SUPPORTED_BIOS.groupBy {
+                    File(directoriesManager.getSystemDirectory(), it.libretroFileName).exists()
+                }.withDefault { listOf() }
+            BiosInfo(bios.getValue(true), bios.getValue(false))
+        }
+
+    /** @deprecated Use [getBiosInfo] instead. */
+    @Deprecated(
+        "Use the suspend variant getBiosInfo()",
+        replaceWith = ReplaceWith("getBiosInfo()"),
+    )
+    fun getBiosInfoSync(): BiosInfo {
         val bios =
             SUPPORTED_BIOS.groupBy {
                 File(directoriesManager.getSystemDirectory(), it.libretroFileName).exists()
             }.withDefault { listOf() }
-
         return BiosInfo(bios.getValue(true), bios.getValue(false))
     }
-
-    suspend fun getBiosInfoAsync(): BiosInfo =
-        withContext(Dispatchers.IO) {
-            getBiosInfo()
-        }
 
     fun tryAddBiosAfter(
         storageFile: StorageFile,
