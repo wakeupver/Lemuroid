@@ -1300,16 +1300,15 @@ data class GameSystem(
 
         private val byIdCache by lazy { mapOf(*SYSTEMS.map { it.id.dbname to it }.toTypedArray()) }
         private val byExtensionCache by lazy {
-            val mutableMap = mutableMapOf<String, GameSystem>()
-            for (system in SYSTEMS) {
-                for (extension in system.uniqueExtensions) {
-                    mutableMap[extension.toLowerCase(Locale.US)] = system
-                }
-            }
-            mutableMap.toMap()
+            SYSTEMS.flatMap { system ->
+                system.uniqueExtensions.map { ext -> ext.lowercase(Locale.US) to system }
+            }.toMap()
         }
 
         fun findById(id: String): GameSystem = byIdCache.getValue(id)
+
+        /** Returns null instead of throwing when [id] is unknown. */
+        fun findByIdOrNull(id: String): GameSystem? = byIdCache[id]
 
         fun all() = SYSTEMS
 
@@ -1322,7 +1321,7 @@ data class GameSystem(
         }
 
         fun findByUniqueFileExtension(fileExtension: String): GameSystem? =
-            byExtensionCache[fileExtension.toLowerCase(Locale.US)]
+            byExtensionCache[fileExtension.lowercase(Locale.US)]
 
         data class ScanOptions(
             val scanByFilename: Boolean = true,
