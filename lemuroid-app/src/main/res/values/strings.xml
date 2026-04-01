@@ -254,4 +254,14 @@
     <string name="tilt_configuration_buttons_l1_r1">L1 - R1</string>
     <string name="tilt_configuration_buttons_l2_r2">L2 - R2</string>
 
+    <string name="game_menu_aspect_ratio">Aspect Ratio</string>
+    <string name="aspect_ratio_core_provided">Core Provided</string>
+    <string name="aspect_ratio_stretch">Stretch (Full Screen)</string>
+    <string name="aspect_ratio_4_3">4:3</string>
+    <string name="aspect_ratio_16_9">16:9</string>
+    <string name="aspect_ratio_16_10">16:10</string>
+    <string name="aspect_ratio_3_2">3:2</string>
+    <string name="aspect_ratio_1_1">1:1 (Square)</string>
+    <string name="aspect_ratio_21_9">21:9 (Ultrawide)</string>
+
 </resources>
