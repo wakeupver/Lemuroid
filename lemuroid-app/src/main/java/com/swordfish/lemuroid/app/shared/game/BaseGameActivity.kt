@@ -40,6 +40,7 @@ import com.swordfish.lemuroid.lib.saves.SavesManager
 import com.swordfish.lemuroid.lib.saves.StatesManager
 import com.swordfish.lemuroid.lib.saves.StatesPreviewManager
 import com.swordfish.touchinput.radial.sensors.TiltConfiguration
+import com.swordfish.lemuroid.app.shared.game.AspectRatioMode
 import dagger.Lazy
 import com.swordfish.lemuroid.app.shared.game.viewmodel.GameViewModelRetroGameView
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -50,7 +51,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-
 @OptIn(DelicateCoroutinesApi::class)
 abstract class BaseGameActivity : ImmersiveActivity() {
     protected lateinit var game: Game
@@ -261,6 +261,10 @@ abstract class BaseGameActivity : ImmersiveActivity() {
                 this.putExtra(GameMenuContract.EXTRA_CURRENT_TILT_CONFIG, currentTiltConfiguration)
                 // TODO PADS... Make sure to avoid passing this if a physical pad is connected.
                 this.putExtra(GameMenuContract.EXTRA_TILT_ALL_CONFIGS, tiltConfigurations.toTypedArray())
+                this.putExtra(
+                    GameMenuContract.EXTRA_ASPECT_RATIO_MODE,
+                    baseGameScreenViewModel.getAspectRatioModeValue().name,
+                )
             }
         startActivityForResult(intent, DIALOG_REQUEST)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -461,6 +465,14 @@ abstract class BaseGameActivity : ImmersiveActivity() {
                 lifecycleScope.launch {
                     val retroView = baseGameScreenViewModel.retroGameView.retroGameView ?: return@launch
                     applyPatchCodesToEmulator(retroView)
+                }
+            }
+            if (data?.hasExtra(GameMenuContract.RESULT_ASPECT_RATIO_MODE) == true) {
+                val modeName = data.getStringExtra(GameMenuContract.RESULT_ASPECT_RATIO_MODE)
+                if (modeName != null) {
+                    val mode = runCatching { AspectRatioMode.valueOf(modeName) }
+                        .getOrDefault(AspectRatioMode.CORE_PROVIDED)
+                    baseGameScreenViewModel.changeAspectRatioMode(mode)
                 }
             }
         }
