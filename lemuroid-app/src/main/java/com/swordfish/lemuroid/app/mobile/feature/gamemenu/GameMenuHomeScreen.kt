@@ -7,6 +7,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Sensors
 import androidx.compose.material.icons.filled.Code
+import androidx.compose.material.icons.filled.AspectRatio
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +20,7 @@ import com.alorma.compose.settings.storage.memory.rememberMemoryIntSettingState
 import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.feature.gamemenu.tilt.TiltConfigurationMenuEntry
 import com.swordfish.lemuroid.app.shared.GameMenuContract
+import com.swordfish.lemuroid.app.shared.game.AspectRatioMode
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsList
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsMenuLink
 import com.swordfish.lemuroid.app.utils.android.settings.LemuroidSettingsSwitch
@@ -196,5 +198,40 @@ fun GameMenuHomeScreen(
                 },
             )
         }
+
+        val aspectRatioModes = AspectRatioMode.entries
+        val aspectRatioLabels = listOf(
+            stringResource(R.string.aspect_ratio_core_provided),
+            stringResource(R.string.aspect_ratio_stretch),
+            stringResource(R.string.aspect_ratio_4_3),
+            stringResource(R.string.aspect_ratio_16_9),
+            stringResource(R.string.aspect_ratio_16_10),
+            stringResource(R.string.aspect_ratio_3_2),
+            stringResource(R.string.aspect_ratio_1_1),
+            stringResource(R.string.aspect_ratio_21_9),
+        )
+        val currentAspectIndex = aspectRatioModes.indexOf(gameMenuRequest.currentAspectRatioMode)
+            .coerceAtLeast(0)
+
+        LemuroidSettingsList(
+            title = { Text(text = stringResource(id = R.string.game_menu_aspect_ratio)) },
+            items = aspectRatioLabels,
+            useSelectedValueAsSubtitle = true,
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.AspectRatio,
+                    contentDescription = stringResource(id = R.string.game_menu_aspect_ratio),
+                )
+            },
+            state = rememberMemoryIntSettingState(currentAspectIndex),
+            onItemSelected = { index, _ ->
+                onResult {
+                    putExtra(
+                        GameMenuContract.RESULT_ASPECT_RATIO_MODE,
+                        aspectRatioModes[index].name,
+                    )
+                }
+            },
+        )
     }
 }
