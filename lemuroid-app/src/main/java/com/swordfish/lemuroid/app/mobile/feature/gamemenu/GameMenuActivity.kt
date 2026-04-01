@@ -87,6 +87,7 @@ class GameMenuActivity : RetrogradeComponentActivity() {
         val currentDisk: Int,
         val currentTiltConfiguration: TiltConfiguration,
         val allTiltConfigurations: List<TiltConfiguration>,
+        val currentAspectRatioMode: com.swordfish.lemuroid.app.shared.game.AspectRatioMode,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,6 +133,10 @@ class GameMenuActivity : RetrogradeComponentActivity() {
                     intent.serializable<Array<TiltConfiguration>>(GameMenuContract.EXTRA_TILT_ALL_CONFIGS)
                         ?.toList()
                         ?: emptyList(),
+                currentAspectRatioMode =
+                    extras?.getString(GameMenuContract.EXTRA_ASPECT_RATIO_MODE)
+                        ?.let { runCatching { com.swordfish.lemuroid.app.shared.game.AspectRatioMode.valueOf(it) }.getOrNull() }
+                        ?: com.swordfish.lemuroid.app.shared.game.AspectRatioMode.CORE_PROVIDED,
             )
 
         setContent {
