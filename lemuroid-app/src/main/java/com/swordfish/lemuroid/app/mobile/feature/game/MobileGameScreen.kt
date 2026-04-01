@@ -49,6 +49,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import com.swordfish.lemuroid.app.shared.game.AspectRatioMode
 import com.swordfish.lemuroid.app.shared.game.BaseGameScreenViewModel
 import com.swordfish.lemuroid.app.shared.game.viewmodel.GameViewModelTouchControls.Companion.MENU_LOADING_ANIMATION_MILLIS
 import com.swordfish.lemuroid.app.shared.settings.HapticFeedbackMode
@@ -63,6 +64,71 @@ import com.swordfish.touchinput.radial.ui.LemuroidButtonPressFeedback
 import gg.padkit.PadKit
 import gg.padkit.config.HapticFeedbackType
 import gg.padkit.inputstate.InputState
+
+/**
+ * Compute the normalised [RectF] viewport that should be passed to [GLRetroView.viewport].
+ *
+ * - [AspectRatioMode.CORE_PROVIDED]: the entire game-view area is used; the core handles its
+ *   own inner ratio (current / default behaviour).
+ * - [AspectRatioMode.STRETCH]: the viewport covers the full GLRetroView surface (0,0 → 1,1),
+ *   so the game image fills the whole screen behind any overlaid controls.
+ * - All other modes: a centred sub-rectangle with the requested ratio is carved out of the
+ *   game-view area, producing Lemuroid-level letterboxing (black bars) around it.
+ *
+ * @param fullPos  Bounds of the full-screen AndroidView in root coordinates.
+ * @param viewPos  Bounds of the [CONSTRAINTS_GAME_VIEW] box in root coordinates.
+ * @param mode     The chosen [AspectRatioMode].
+ */
+private fun computeViewport(
+    fullPos: Rect,
+    viewPos: Rect,
+    mode: AspectRatioMode,
+): RectF {
+    // STRETCH: fill the entire GLRetroView surface regardless of game-view layout.
+    if (mode == AspectRatioMode.STRETCH) {
+        return RectF(0f, 0f, 1f, 1f)
+    }
+
+    // For CORE_PROVIDED (and as the base for custom ratios) start with the game-view area.
+    val effectivePos: Rect = if (mode == AspectRatioMode.CORE_PROVIDED || mode.ratio == null) {
+        viewPos
+    } else {
+        val targetRatio = mode.ratio
+        val viewWidth  = viewPos.width
+        val viewHeight = viewPos.height
+        val viewRatio  = viewWidth / viewHeight
+
+        if (viewRatio > targetRatio) {
+            // Available area is wider than target → shrink width, keep height.
+            val newWidth = viewHeight * targetRatio
+            val cx = viewPos.left + viewWidth / 2f
+            Rect(
+                left   = cx - newWidth / 2f,
+                top    = viewPos.top,
+                right  = cx + newWidth / 2f,
+                bottom = viewPos.bottom,
+            )
+        } else {
+            // Available area is taller than target → shrink height, keep width.
+            val newHeight = viewWidth / targetRatio
+            val cy = viewPos.top + viewHeight / 2f
+            Rect(
+                left   = viewPos.left,
+                top    = cy - newHeight / 2f,
+                right  = viewPos.right,
+                bottom = cy + newHeight / 2f,
+            )
+        }
+    }
+
+    // Normalise effectivePos relative to the full-screen AndroidView.
+    return RectF(
+        (effectivePos.left   - fullPos.left) / fullPos.width,
+        (effectivePos.top    - fullPos.top)  / fullPos.height,
+        (effectivePos.right  - fullPos.left) / fullPos.width,
+        (effectivePos.bottom - fullPos.top)  / fullPos.height,
+    )
+}
 
 @Composable
 fun MobileGameScreen(viewModel: BaseGameScreenViewModel) {
@@ -109,6 +175,10 @@ fun MobileGameScreen(viewModel: BaseGameScreenViewModel) {
                 HapticFeedbackMode.PRESS_RELEASE -> HapticFeedbackType.PRESS_RELEASE
             }
 
+        // Observe the current aspect ratio mode so that viewport updates reactively.
+        val aspectRatioMode = viewModel.getAspectRatioMode()
+            .collectAsState(AspectRatioMode.CORE_PROVIDED)
+
         PadKit(
             modifier = Modifier.fillMaxSize(),
             onInputEvents = { viewModel.handleVirtualInputEvent(it) },
@@ -135,17 +205,11 @@ fun MobileGameScreen(viewModel: BaseGameScreenViewModel) {
             val fullPos = fullScreenPosition.value
             val viewPos = viewportPosition.value
 
-            LaunchedEffect(fullPos, viewPos) {
+            // Re-run whenever layout changes OR the user picks a different aspect ratio.
+            LaunchedEffect(fullPos, viewPos, aspectRatioMode.value) {
                 val gameView = viewModel.retroGameView.retroGameViewFlow()
                 if (fullPos == null || viewPos == null) return@LaunchedEffect
-                val viewport =
-                    RectF(
-                        (viewPos.left - fullPos.left) / fullPos.width,
-                        (viewPos.top - fullPos.top) / fullPos.height,
-                        (viewPos.right - fullPos.left) / fullPos.width,
-                        (viewPos.bottom - fullPos.top) / fullPos.height,
-                    )
-                gameView.viewport = viewport
+                gameView.viewport = computeViewport(fullPos, viewPos, aspectRatioMode.value)
             }
 
             ConstraintLayout(
