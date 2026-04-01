@@ -11,6 +11,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.swordfish.lemuroid.R
 import com.swordfish.lemuroid.app.mobile.feature.game.GameService
 import com.swordfish.lemuroid.app.mobile.feature.settings.SettingsManager
 import com.swordfish.lemuroid.app.shared.game.viewmodel.GameViewModelInput
@@ -38,6 +39,7 @@ import com.swordfish.touchinput.radial.sensors.TiltConfiguration
 import com.swordfish.touchinput.radial.settings.TouchControllerSettingsManager
 import gg.padkit.inputevents.InputEvent
 import gg.padkit.inputstate.InputState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -143,6 +145,34 @@ class BaseGameScreenViewModel(
         )
 
     val loadingState = MutableStateFlow(false)
+
+    // ── Aspect Ratio ──────────────────────────────────────────────────────────
+    private val _aspectRatioMode = MutableStateFlow(AspectRatioMode.CORE_PROVIDED)
+
+    init {
+        // Restore persisted aspect ratio mode from SharedPreferences.
+        viewModelScope.launch(Dispatchers.IO) {
+            val prefKey = appContext.getString(R.string.pref_key_aspect_ratio_mode)
+            val saved = sharedPreferences.getString(prefKey, AspectRatioMode.CORE_PROVIDED.name)
+            _aspectRatioMode.value = runCatching {
+                AspectRatioMode.valueOf(saved ?: AspectRatioMode.CORE_PROVIDED.name)
+            }.getOrDefault(AspectRatioMode.CORE_PROVIDED)
+        }
+    }
+
+    fun getAspectRatioMode(): Flow<AspectRatioMode> = _aspectRatioMode
+
+    /** Synchronous snapshot of the current mode – used when building the game-menu intent. */
+    fun getAspectRatioModeValue(): AspectRatioMode = _aspectRatioMode.value
+
+    fun changeAspectRatioMode(mode: AspectRatioMode) {
+        _aspectRatioMode.value = mode
+        viewModelScope.launch(Dispatchers.IO) {
+            val prefKey = appContext.getString(R.string.pref_key_aspect_ratio_mode)
+            sharedPreferences.edit().putString(prefKey, mode.name).apply()
+        }
+    }
+    // ─────────────────────────────────────────────────────────────────────────
 
     private inline fun withLoading(block: () -> Unit) {
         loadingState.value = true
